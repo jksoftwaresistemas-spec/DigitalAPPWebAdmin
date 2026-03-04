@@ -1,36 +1,46 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AutorizarController; // Se for usar um controller
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use Illuminate\Support\Facades\Route;
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
+
+// Exibe o formulário de login (sua página welcome)
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('login');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Processa o login - IMPORTANTE: Esta rota recebe o POST do formulário da welcome
+Route::post('/', [AuthenticatedSessionController::class, 'store']);
 
+// Dashboard (Unificado em uma única chamada)
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
+// Rotas Protegidas por Autenticação
 Route::middleware('auth')->group(function () {
+    
+    // Perfil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-Route::middleware(['auth'])->group(function () {
-    // Rota para a index de autorização
+    // Autorização
     Route::get('/autorizar', function () {
         return view('autorizar.index');
     })->name('autorizar.index');
-});
 
-Route::middleware(['auth'])->group(function () {
+    // Clientes
     Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
-
+// Importa as demais rotas de autenticação (register, logout, password reset, etc)
 require __DIR__.'/auth.php';

@@ -24,7 +24,53 @@
                 </div>
             </div>
 
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden sm:flex sm:items-center sm:ms-6 gap-3">
+                
+                <x-dropdown align="right" width="80">
+                    <x-slot name="trigger">
+                        <button class="relative p-2 text-gray-400 hover:text-black hover:bg-gray-50 rounded-xl transition-all duration-300 focus:outline-none group">
+                            <svg class="h-6 w-6 transform group-hover:rotate-12 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                            </svg>
+                            
+                            <span class="absolute top-2 right-2 flex h-2.5 w-2.5">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-600"></span>
+                            </span>
+                        </button>
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <div class="px-4 py-2 border-b border-gray-100 bg-gray-50/50">
+                            <h3 class="text-[10px] font-black uppercase tracking-[0.15em] text-gray-400">
+                                Centro de Alertas
+                            </h3>
+                        </div>
+                        
+                        <div class="max-h-64 overflow-y-auto">
+                            <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-50 group">
+                                <div class="flex justify-between items-start">
+                                    <p class="text-[11px] font-bold text-gray-900 uppercase tracking-tight group-hover:text-indigo-600 transition-colors">Novo Registro</p>
+                                    <span class="text-[9px] text-gray-300 font-bold uppercase">5m</span>
+                                </div>
+                                <p class="text-[11px] text-gray-500 mt-0.5 leading-relaxed">Tech Solutions finalizou o cadastro.</p>
+                            </a>
+
+                            <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-50 group">
+                                <div class="flex justify-between items-start">
+                                    <p class="text-[11px] font-bold text-gray-900 uppercase tracking-tight group-hover:text-indigo-600 transition-colors">Segurança</p>
+                                    <span class="text-[9px] text-gray-300 font-bold uppercase">1h</span>
+                                </div>
+                                <p class="text-[11px] text-gray-500 mt-0.5 leading-relaxed">Backup Firestore concluído.</p>
+                            </a>
+                        </div>
+
+                        <a href="#" class="block text-center py-2 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-black border-t border-gray-100 bg-gray-50/50 transition-colors">
+                            Ver tudo
+                        </a>
+                    </x-slot>
+                </x-dropdown>
+
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 text-xs font-black uppercase tracking-widest text-gray-500 bg-gray-50 rounded-xl hover:text-black transition duration-150">
@@ -43,15 +89,6 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
-            </div>
-
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="p-2 rounded-xl text-gray-400 hover:bg-gray-100 transition">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
             </div>
         </div>
     </div>
